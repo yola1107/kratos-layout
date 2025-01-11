@@ -4,8 +4,6 @@ import (
 	"flag"
 	"os"
 
-	"github.com/yola1107/kratos/v2/transport/tcp"
-
 	"kratos-layout/internal/conf"
 
 	"github.com/yola1107/kratos/v2"
@@ -15,7 +13,7 @@ import (
 	"github.com/yola1107/kratos/v2/middleware/tracing"
 	"github.com/yola1107/kratos/v2/transport/grpc"
 	"github.com/yola1107/kratos/v2/transport/http"
-
+	"github.com/yola1107/kratos/v2/transport/tcp"
 	_ "go.uber.org/automaxprocs"
 )
 
