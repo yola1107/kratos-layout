@@ -12,9 +12,9 @@ import (
 	"kratos-layout/internal/server"
 	"kratos-layout/internal/service"
 
-	"github.com/go-kratos/kratos/v2"
-	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
+	"github.com/yola1107/kratos/v2"
+	"github.com/yola1107/kratos/v2/log"
 )
 
 // wireApp init kratos application.

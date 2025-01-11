@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Greeter_SayHello_FullMethodName  = "/helloworld.v1.Greeter/SayHello"
-	Greeter_SayHello2_FullMethodName = "/helloworld.v1.Greeter/SayHello2"
+	Greeter_SayHelloReq_FullMethodName  = "/helloworld.v1.Greeter/SayHelloReq"
+	Greeter_SayHello2Req_FullMethodName = "/helloworld.v1.Greeter/SayHello2Req"
 )
 
 // GreeterClient is the client API for Greeter service.
@@ -30,8 +30,8 @@ const (
 // The greeting service definition.
 type GreeterClient interface {
 	// Sends a greeting
-	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
-	SayHello2(ctx context.Context, in *Hello2Request, opts ...grpc.CallOption) (*Hello2Reply, error)
+	SayHelloReq(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+	SayHello2Req(ctx context.Context, in *Hello2Request, opts ...grpc.CallOption) (*Hello2Reply, error)
 }
 
 type greeterClient struct {
@@ -42,20 +42,20 @@ func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
 	return &greeterClient{cc}
 }
 
-func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
+func (c *greeterClient) SayHelloReq(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, Greeter_SayHello_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Greeter_SayHelloReq_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *greeterClient) SayHello2(ctx context.Context, in *Hello2Request, opts ...grpc.CallOption) (*Hello2Reply, error) {
+func (c *greeterClient) SayHello2Req(ctx context.Context, in *Hello2Request, opts ...grpc.CallOption) (*Hello2Reply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Hello2Reply)
-	err := c.cc.Invoke(ctx, Greeter_SayHello2_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Greeter_SayHello2Req_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,8 +69,8 @@ func (c *greeterClient) SayHello2(ctx context.Context, in *Hello2Request, opts .
 // The greeting service definition.
 type GreeterServer interface {
 	// Sends a greeting
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
-	SayHello2(context.Context, *Hello2Request) (*Hello2Reply, error)
+	SayHelloReq(context.Context, *HelloRequest) (*HelloReply, error)
+	SayHello2Req(context.Context, *Hello2Request) (*Hello2Reply, error)
 	mustEmbedUnimplementedGreeterServer()
 }
 
@@ -81,11 +81,11 @@ type GreeterServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGreeterServer struct{}
 
-func (UnimplementedGreeterServer) SayHello(context.Context, *HelloRequest) (*HelloReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+func (UnimplementedGreeterServer) SayHelloReq(context.Context, *HelloRequest) (*HelloReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SayHelloReq not implemented")
 }
-func (UnimplementedGreeterServer) SayHello2(context.Context, *Hello2Request) (*Hello2Reply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SayHello2 not implemented")
+func (UnimplementedGreeterServer) SayHello2Req(context.Context, *Hello2Request) (*Hello2Reply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SayHello2Req not implemented")
 }
 func (UnimplementedGreeterServer) mustEmbedUnimplementedGreeterServer() {}
 func (UnimplementedGreeterServer) testEmbeddedByValue()                 {}
@@ -108,38 +108,38 @@ func RegisterGreeterServer(s grpc.ServiceRegistrar, srv GreeterServer) {
 	s.RegisterService(&Greeter_ServiceDesc, srv)
 }
 
-func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Greeter_SayHelloReq_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HelloRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).SayHello(ctx, in)
+		return srv.(GreeterServer).SayHelloReq(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Greeter_SayHello_FullMethodName,
+		FullMethod: Greeter_SayHelloReq_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHello(ctx, req.(*HelloRequest))
+		return srv.(GreeterServer).SayHelloReq(ctx, req.(*HelloRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Greeter_SayHello2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Greeter_SayHello2Req_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Hello2Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).SayHello2(ctx, in)
+		return srv.(GreeterServer).SayHello2Req(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Greeter_SayHello2_FullMethodName,
+		FullMethod: Greeter_SayHello2Req_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHello2(ctx, req.(*Hello2Request))
+		return srv.(GreeterServer).SayHello2Req(ctx, req.(*Hello2Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -152,12 +152,12 @@ var Greeter_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GreeterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _Greeter_SayHello_Handler,
+			MethodName: "SayHelloReq",
+			Handler:    _Greeter_SayHelloReq_Handler,
 		},
 		{
-			MethodName: "SayHello2",
-			Handler:    _Greeter_SayHello2_Handler,
+			MethodName: "SayHello2Req",
+			Handler:    _Greeter_SayHello2Req_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

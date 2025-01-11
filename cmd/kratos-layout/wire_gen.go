@@ -7,13 +7,13 @@
 package main
 
 import (
+	"github.com/yola1107/kratos/v2"
+	"github.com/yola1107/kratos/v2/log"
 	"kratos-layout/internal/biz"
 	"kratos-layout/internal/conf"
 	"kratos-layout/internal/data"
 	"kratos-layout/internal/server"
 	"kratos-layout/internal/service"
-	"github.com/go-kratos/kratos/v2"
-	"github.com/go-kratos/kratos/v2/log"
 )
 
 import (
@@ -33,7 +33,8 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	greeterService := service.NewGreeterService(greeterUsecase)
 	grpcServer := server.NewGRPCServer(confServer, greeterService, logger)
 	httpServer := server.NewHTTPServer(confServer, greeterService, logger)
-	app := newApp(logger, grpcServer, httpServer)
+	tcpServer := server.NewTCPServer(confServer, greeterService, logger)
+	app := newApp(logger, grpcServer, httpServer, tcpServer)
 	return app, func() {
 		cleanup()
 	}, nil

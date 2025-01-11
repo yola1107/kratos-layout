@@ -12,7 +12,7 @@ paths:
             tags:
                 - Greeter
             description: Sends a greeting
-            operationId: Greeter_SayHello
+            operationId: Greeter_SayHelloReq
             parameters:
                 - name: name
                   in: path
@@ -30,7 +30,7 @@ paths:
         get:
             tags:
                 - Greeter
-            operationId: Greeter_SayHello2
+            operationId: Greeter_SayHello2Req
             parameters:
                 - name: name
                   in: path

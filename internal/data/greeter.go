@@ -5,7 +5,7 @@ import (
 
 	"kratos-layout/internal/biz"
 
-	"github.com/go-kratos/kratos/v2/log"
+	"github.com/yola1107/kratos/v2/log"
 )
 
 type greeterRepo struct {

@@ -10,6 +10,7 @@ package v1
 // is compatible with the kratos package it is being compiled against.
 import (
 	"context"
+	"runtime/debug"
 
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/tcp"
@@ -29,7 +30,7 @@ type Loop struct {
 func RecoverFromError(cb func()) {
 	if e := recover(); e != nil {
 		log.Error("Recover => %s:%s\n", e, debug.Stack())
-		if nil != cb {
+		if cb != nil {
 			cb()
 		}
 	}
@@ -82,48 +83,46 @@ func PostAndWait(job func() interface{}) interface{} { return ins.PostAndWait(jo
 type GreeterTCPServer interface {
 	SetCometChan(cl *tcp.ChanList, cs *tcp.Server)
 	IsLoopFunc(f string) (isLoop bool)
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
-	SayHello2(context.Context, *Hello2Request) (*Hello2Reply, error)
+	SayHelloReq(context.Context, *HelloRequest) (*HelloReply, error)
+	SayHello2Req(context.Context, *Hello2Request) (*Hello2Reply, error)
 }
 
 func RegisterGreeterTCPServer(s *tcp.Server, srv GreeterTCPServer) {
-	s.RegisterService(&Greeter_TCP_ServiceDesc, srv)
 	chanList := s.RegisterService(&Greeter_TCP_ServiceDesc, srv)
 	srv.SetCometChan(chanList, s)
 	ins = &Loop{jobs: make(chan func(), 10000), toggle: make(chan byte)}
 	ins.Start()
 }
 
-func _Greeter_SayHello_TCP_Handler(srv interface{}, ctx context.Context, data []byte, interceptor tcp.UnaryServerInterceptor) ([]byte, error) {
+func _Greeter_SayHelloReq_TCP_Handler(srv interface{}, ctx context.Context, data []byte, interceptor tcp.UnaryServerInterceptor) ([]byte, error) {
 	in := new(HelloRequest)
-	err := proto.Unmarshal(data, in)
-	if err != nil {
+	if err := proto.Unmarshal(data, in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		out, err := srv.(GreeterTCPServer).SayHello(ctx, in)
+		out, err := srv.(GreeterTCPServer).SayHelloReq(ctx, in)
 		data, _ := proto.Marshal(out)
 		return data, err
 	}
 	info := &tcp.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/_Greeter_SayHello_TCP_Handler/SayHello",
+		FullMethod: "/helloworld.v1.Greeter/SayHelloReq",
 	}
 	handler := func(ctx context.Context, req interface{}) ([]byte, error) {
 		out := new(HelloReply)
 		var err error
-		if srv.(GreeterTCPServer).IsLoopFunc("SayHello") {
+		if srv.(GreeterTCPServer).IsLoopFunc("SayHelloReq") {
 			rspChan := make(chan *HelloReply)
 			errChan := make(chan error)
 			ins.Post(func() {
-				resp, err := srv.(GreeterTCPServer).SayHello(ctx, req.(*HelloRequest))
+				resp, err := srv.(GreeterTCPServer).SayHelloReq(ctx, req.(*HelloRequest))
 				rspChan <- resp
 				errChan <- err
 			})
 			out = <-rspChan
 			err = <-errChan
 		} else {
-			out, err = srv.(GreeterTCPServer).SayHello(ctx, req.(*HelloRequest))
+			out, err = srv.(GreeterTCPServer).SayHelloReq(ctx, req.(*HelloRequest))
 		}
 		if out != nil {
 			data, _ := proto.Marshal(out)
@@ -133,36 +132,36 @@ func _Greeter_SayHello_TCP_Handler(srv interface{}, ctx context.Context, data []
 	}
 	return interceptor(ctx, in, info, handler)
 }
-func _Greeter_SayHello2_TCP_Handler(srv interface{}, ctx context.Context, data []byte, interceptor tcp.UnaryServerInterceptor) ([]byte, error) {
+
+func _Greeter_SayHello2Req_TCP_Handler(srv interface{}, ctx context.Context, data []byte, interceptor tcp.UnaryServerInterceptor) ([]byte, error) {
 	in := new(Hello2Request)
-	err := proto.Unmarshal(data, in)
-	if err != nil {
+	if err := proto.Unmarshal(data, in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		out, err := srv.(GreeterTCPServer).SayHello2(ctx, in)
+		out, err := srv.(GreeterTCPServer).SayHello2Req(ctx, in)
 		data, _ := proto.Marshal(out)
 		return data, err
 	}
 	info := &tcp.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/_Greeter_SayHello2_TCP_Handler/SayHello2",
+		FullMethod: "/helloworld.v1.Greeter/SayHello2Req",
 	}
 	handler := func(ctx context.Context, req interface{}) ([]byte, error) {
 		out := new(Hello2Reply)
 		var err error
-		if srv.(GreeterTCPServer).IsLoopFunc("SayHello2") {
+		if srv.(GreeterTCPServer).IsLoopFunc("SayHello2Req") {
 			rspChan := make(chan *Hello2Reply)
 			errChan := make(chan error)
 			ins.Post(func() {
-				resp, err := srv.(GreeterTCPServer).SayHello2(ctx, req.(*Hello2Request))
+				resp, err := srv.(GreeterTCPServer).SayHello2Req(ctx, req.(*Hello2Request))
 				rspChan <- resp
 				errChan <- err
 			})
 			out = <-rspChan
 			err = <-errChan
 		} else {
-			out, err = srv.(GreeterTCPServer).SayHello2(ctx, req.(*Hello2Request))
+			out, err = srv.(GreeterTCPServer).SayHello2Req(ctx, req.(*Hello2Request))
 		}
 		if out != nil {
 			data, _ := proto.Marshal(out)
@@ -178,13 +177,13 @@ var Greeter_TCP_ServiceDesc = tcp.ServiceDesc{
 	HandlerType: (*GreeterTCPServer)(nil),
 	Methods: []tcp.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _Greeter_SayHello_TCP_Handler,
+			MethodName: "SayHelloReq",
+			Handler:    _Greeter_SayHelloReq_TCP_Handler,
 			Ops:        1001,
 		},
 		{
-			MethodName: "SayHello2",
-			Handler:    _Greeter_SayHello2_TCP_Handler,
+			MethodName: "SayHello2Req",
+			Handler:    _Greeter_SayHello2Req_TCP_Handler,
 			Ops:        1003,
 		},
 	},

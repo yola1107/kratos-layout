@@ -20,8 +20,9 @@ VERSION=$(shell git describe --tags --always)
 init:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
-	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2@latest
+	go install github.com/yola1107/kratos/cmd/kratos/v2@latest
+	go install github.com/yola1107/kratos/cmd/protoc-gen-go-http/v2@latest
+	go install github.com/yola1107/kratos/cmd/protoc-gen-go-tcp/v2@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/google/wire/cmd/wire@latest
 
@@ -44,6 +45,12 @@ api:
  	       --go-tcp_out=paths=source_relative:./api \
 	       --openapi_out=fq_schema_naming=true,default_response=false:. \
 	       $(API_PROTO_FILES)
+
+
+.PHONY: wire
+# wire
+wire:
+	cd cmd/kratos-layout && wire
 
 .PHONY: build
 # build
