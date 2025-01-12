@@ -27,7 +27,7 @@ service Greeter {
     }
     rpc SayHello2Req(Hello2Request) returns (Hello2Reply) {
         option (google.api.http) = {
-            get: "/helloworld2{name}"
+            get: "/helloworld2/{name}"
         };
     }
 }

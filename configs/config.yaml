@@ -6,7 +6,7 @@ server:
     addr: 0.0.0.0:9000
     timeout: 1s
   tcp:
-    addr: 0.0.0.0:3000
+    addr: 0.0.0.0:6000
     timeout: 1s
 data:
   database:

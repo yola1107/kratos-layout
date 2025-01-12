@@ -39,10 +39,6 @@ func (s *GreeterService) SayHello2Req(ctx context.Context, in *v1.Hello2Request)
 	return &v1.Hello2Reply{Message: "Hello " + g.Hello}, nil
 }
 
-func (s *GreeterService) SetCometChan(cl *tcp.ChanList, cs *tcp.Server) {
+func (s *GreeterService) SetCometChan(cl *tcp.ChanList, cs *tcp.Server) {}
 
-}
-
-func (s *GreeterService) IsLoopFunc(f string) (isLoop bool) {
-	return false
-}
+func (s *GreeterService) IsLoopFunc(f string) (isLoop bool) { return false }

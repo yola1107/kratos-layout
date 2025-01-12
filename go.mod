@@ -3,9 +3,8 @@ module kratos-layout
 go 1.22
 
 require (
-	github.com/gogo/protobuf v1.3.2
 	github.com/google/wire v0.6.0
-	github.com/yola1107/kratos/v2 v2.0.0-20250111095555-882301b7dec1
+	github.com/yola1107/kratos/v2 v2.0.0-20250112092322-2180aeefa656
 	go.uber.org/automaxprocs v1.5.1
 	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157
 	google.golang.org/grpc v1.65.0
@@ -19,8 +18,11 @@ require (
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-playground/form/v4 v4.2.1 // indirect
+	github.com/golang/glog v1.2.1 // indirect
+	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
+	github.com/zhenjl/cityhash v0.0.0-20131128155616-cdd6a94144ab // indirect
 	go.opentelemetry.io/otel v1.24.0 // indirect
 	go.opentelemetry.io/otel/metric v1.24.0 // indirect
 	go.opentelemetry.io/otel/trace v1.24.0 // indirect
