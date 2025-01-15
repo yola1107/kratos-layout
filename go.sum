@@ -49,8 +49,8 @@ github.com/prashantv/gostub v1.1.0 h1:BTyx3RfQjRHnUWaGF9oQos79AlQ5k8WNktv7VGvVH4
 github.com/prashantv/gostub v1.1.0/go.mod h1:A5zLQHz7ieHGG7is6LLXLz7I8+3LZzsrV0P1IAHhP5U=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
-github.com/yola1107/kratos/v2 v2.0.0-20250112092322-2180aeefa656 h1:Gg+DNZAhv+mFVuIQYRvpiQjGibIPKepj3chPm+9z33A=
-github.com/yola1107/kratos/v2 v2.0.0-20250112092322-2180aeefa656/go.mod h1:T4kC6MwekgQzrVZOz+qXMM3Q93mqqjZfq1M2vDLKIbw=
+github.com/yola1107/kratos/v2 v2.0.0-20250112154558-962ee97dd149 h1:a9/tjULbMQGYEttHSQ+Aqneo5vxvKqGD/TnPPpbsN9A=
+github.com/yola1107/kratos/v2 v2.0.0-20250112154558-962ee97dd149/go.mod h1:T4kC6MwekgQzrVZOz+qXMM3Q93mqqjZfq1M2vDLKIbw=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 github.com/zhenjl/cityhash v0.0.0-20131128155616-cdd6a94144ab h1:BWHvAOZz0pBILkGl/ebPQKZDrqbaWj/iN9RE8AvaTvg=
 github.com/zhenjl/cityhash v0.0.0-20131128155616-cdd6a94144ab/go.mod h1:P6L88wrqK99Njntah9SB7AyzFpUXsXYq06LkjixxQmY=
