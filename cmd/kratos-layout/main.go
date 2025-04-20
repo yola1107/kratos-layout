@@ -9,8 +9,8 @@ import (
 	"github.com/yola1107/kratos/v2"
 	"github.com/yola1107/kratos/v2/config"
 	"github.com/yola1107/kratos/v2/config/file"
+	"github.com/yola1107/kratos/v2/library/log/logrus"
 	"github.com/yola1107/kratos/v2/log"
-	"github.com/yola1107/kratos/v2/middleware/tracing"
 	"github.com/yola1107/kratos/v2/transport/grpc"
 	"github.com/yola1107/kratos/v2/transport/http"
 	"github.com/yola1107/kratos/v2/transport/tcp"
@@ -50,15 +50,21 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, ts *tcp.Server)
 
 func main() {
 	flag.Parse()
-	logger := log.With(log.NewStdLogger(os.Stdout),
-		"ts", log.DefaultTimestamp,
-		"caller", log.DefaultCaller,
-		"service.id", id,
-		"service.name", Name,
-		"service.version", Version,
-		"trace.id", tracing.TraceID(),
-		"span.id", tracing.SpanID(),
-	)
+	//logger := log.With(log.NewStdLogger(os.Stdout),
+	//	"ts", log.DefaultTimestamp,
+	//	"caller", log.DefaultCaller,
+	//	"service.id", id,
+	//	"service.name", Name,
+	//	"service.version", Version,
+	//	"trace.id", tracing.TraceID(),
+	//	"span.id", tracing.SpanID(),
+	//)
+
+	//logger := zap.FullColorLogger()
+
+	logger := logrus.ShortColorLogger()
+	log.SetLogger(logger)
+
 	c := config.New(
 		config.WithSource(
 			file.NewSource(flagconf),

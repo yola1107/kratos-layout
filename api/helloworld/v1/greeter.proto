@@ -4,9 +4,9 @@ package helloworld.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "kratos-layout/api/helloworld/v1;v1";
-option java_multiple_files = true;
-option java_package = "dev.kratos.api.helloworld.v1";
+option go_package           = "kratos-layout/api/helloworld/v1;v1";
+option java_multiple_files  = true;
+option java_package         = "dev.kratos.api.helloworld.v1";
 option java_outer_classname = "HelloworldProtoV1";
 
 enum GameCommand {
@@ -15,6 +15,7 @@ enum GameCommand {
     SayHelloRsp  = 1002;
     SayHello2Req = 1003;
     SayHello2Rsp = 1004;
+    ChatPush     = 1005;  //push
 }
 
 // The greeting service definition.
@@ -50,4 +51,13 @@ message Hello2Request {
 // The response message containing the greetings
 message Hello2Reply {
     string message = 1;
+}
+message ChatReq {
+    string name = 1;
+    int32 age   = 2;
+}
+message ChatRsp {
+    string name = 1;
+    int32 age   = 2;
+    int32 code  = 3;
 }
