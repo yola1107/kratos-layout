@@ -4,14 +4,12 @@ go 1.22
 
 require (
 	github.com/google/wire v0.6.0
-	//github.com/yola1107/kratos/v2 v2.0.0-20250419213546-8d73ff7ded62
+	github.com/yola1107/kratos/v2 v2.0.0-20250420184447-146cbce21aac
 	go.uber.org/automaxprocs v1.5.1
 	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157
 	google.golang.org/grpc v1.65.0
 	google.golang.org/protobuf v1.36.3
 )
-
-require github.com/yola1107/kratos/v2 v2.0.0-20250420184447-146cbce21aac
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
