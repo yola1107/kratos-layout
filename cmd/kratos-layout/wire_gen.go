@@ -34,7 +34,8 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	grpcServer := server.NewGRPCServer(confServer, greeterService, logger)
 	httpServer := server.NewHTTPServer(confServer, greeterService, logger)
 	tcpServer := server.NewTCPServer(confServer, greeterService, logger)
-	app := newApp(logger, grpcServer, httpServer, tcpServer)
+	websocketServer := server.NewWebsocketServer(confServer, greeterService, logger)
+	app := newApp(logger, grpcServer, httpServer, tcpServer, websocketServer)
 	return app, func() {
 		cleanup()
 	}, nil

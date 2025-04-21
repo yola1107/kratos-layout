@@ -4,12 +4,14 @@ import (
 	"flag"
 	"os"
 
+	"github.com/yola1107/kratos/v2/transport/websocket"
+
 	"kratos-layout/internal/conf"
 
 	"github.com/yola1107/kratos/v2"
 	"github.com/yola1107/kratos/v2/config"
 	"github.com/yola1107/kratos/v2/config/file"
-	"github.com/yola1107/kratos/v2/library/log/logrus"
+	"github.com/yola1107/kratos/v2/contrib/log/logrus"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/grpc"
 	"github.com/yola1107/kratos/v2/transport/http"
@@ -33,7 +35,7 @@ func init() {
 	flag.StringVar(&flagconf, "conf", "../../configs", "config path, eg: -conf config.yaml")
 }
 
-func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, ts *tcp.Server) *kratos.App {
+func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, ts *tcp.Server, ws *websocket.Server) *kratos.App {
 	return kratos.New(
 		kratos.ID(id),
 		kratos.Name(Name),
@@ -44,6 +46,7 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, ts *tcp.Server)
 			gs,
 			hs,
 			ts,
+			ws,
 		),
 	)
 }
@@ -61,8 +64,8 @@ func main() {
 	//)
 
 	//logger := zap.FullColorLogger()
-
 	logger := logrus.ShortColorLogger()
+
 	log.SetLogger(logger)
 
 	c := config.New(
