@@ -10,12 +10,14 @@ option java_package         = "dev.kratos.api.helloworld.v1";
 option java_outer_classname = "HelloworldProtoV1";
 
 enum GameCommand {
-    Ping         = 0;     //
+    Nothing     = 0;  //
+    Ping        = 1;  //
+    PushExample = 2;  //push
+
     SayHelloReq  = 1001;  //
     SayHelloRsp  = 1002;
     SayHello2Req = 1003;
     SayHello2Rsp = 1004;
-    ChatPush     = 1005;  //push
 }
 
 // The greeting service definition.
@@ -26,9 +28,11 @@ service Greeter {
             get: "/helloworld/{name}"
         };
     }
+    //Sends a greeting by post
     rpc SayHello2Req(Hello2Request) returns (Hello2Reply) {
         option (google.api.http) = {
-            get: "/helloworld2/{name}"
+            post: "/greeter/SayHello2Req"
+            body: "*"
         };
     }
 }
@@ -51,13 +55,4 @@ message Hello2Request {
 // The response message containing the greetings
 message Hello2Reply {
     string message = 1;
-}
-message ChatReq {
-    string name = 1;
-    int32 age   = 2;
-}
-message ChatRsp {
-    string name = 1;
-    int32 age   = 2;
-    int32 code  = 3;
 }

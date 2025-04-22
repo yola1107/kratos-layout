@@ -23,6 +23,7 @@ const OperationGreeterSayHello2Req = "/helloworld.v1.Greeter/SayHello2Req"
 const OperationGreeterSayHelloReq = "/helloworld.v1.Greeter/SayHelloReq"
 
 type GreeterHTTPServer interface {
+	// SayHello2ReqSends a greeting by post
 	SayHello2Req(context.Context, *Hello2Request) (*Hello2Reply, error)
 	// SayHelloReq Sends a greeting
 	SayHelloReq(context.Context, *HelloRequest) (*HelloReply, error)
@@ -31,7 +32,7 @@ type GreeterHTTPServer interface {
 func RegisterGreeterHTTPServer(s *http.Server, srv GreeterHTTPServer) {
 	r := s.Route("/")
 	r.GET("/helloworld/{name}", _Greeter_SayHelloReq0_HTTP_Handler(srv))
-	r.GET("/helloworld2/{name}", _Greeter_SayHello2Req0_HTTP_Handler(srv))
+	r.POST("/greeter/SayHello2Req", _Greeter_SayHello2Req0_HTTP_Handler(srv))
 }
 
 func _Greeter_SayHelloReq0_HTTP_Handler(srv GreeterHTTPServer) func(ctx http.Context) error {
@@ -59,10 +60,10 @@ func _Greeter_SayHelloReq0_HTTP_Handler(srv GreeterHTTPServer) func(ctx http.Con
 func _Greeter_SayHello2Req0_HTTP_Handler(srv GreeterHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in Hello2Request
-		if err := ctx.BindQuery(&in); err != nil {
+		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		if err := ctx.BindVars(&in); err != nil {
+		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationGreeterSayHello2Req)
@@ -93,11 +94,11 @@ func NewGreeterHTTPClient(client *http.Client) GreeterHTTPClient {
 
 func (c *GreeterHTTPClientImpl) SayHello2Req(ctx context.Context, in *Hello2Request, opts ...http.CallOption) (*Hello2Reply, error) {
 	var out Hello2Reply
-	pattern := "/helloworld2/{name}"
-	path := binding.EncodeURL(pattern, in, true)
+	pattern := "/greeter/SayHello2Req"
+	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationGreeterSayHello2Req))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

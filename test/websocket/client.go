@@ -20,7 +20,7 @@ func main() {
 	log.SetLogger(logrus.ShortColorLogger())
 
 	wsClient, err := websocket.NewClient(context.Background(),
-		websocket.WithEndpoint("ws://0.0.0.0:6000"),
+		websocket.WithEndpoint("ws://0.0.0.0:3102"),
 		websocket.WithToken(""),
 		websocket.WithPushHandler(map[int32]websocket.PushHandler{
 			int32(v1.GameCommand_SayHelloRsp):  func(data []byte) { log.Infof("ws-> 1002 cb. %v", data) },
@@ -28,7 +28,7 @@ func main() {
 		}),
 		websocket.WithResponseHandler(map[int32]websocket.ResponseHandler{
 			int32(v1.GameCommand_SayHelloReq):  func(data []byte, code int32) { log.Infof("ws-> 1001. data=%+v code=%d", data, code) },
-			int32(v1.GameCommand_SayHello2Req): func(data []byte, code int32) { log.Infof("ws-> 1013. data=%+v code=%d", data, code) },
+			int32(v1.GameCommand_SayHello2Req): func(data []byte, code int32) { log.Infof("ws-> 1003. data=%+v code=%d", data, code) },
 			int32(6666):                        func(data []byte, code int32) { log.Infof("ws-> 6666. data=%+v code=%d", data, code) },
 			int32(9999):                        func(data []byte, code int32) { log.Infof("ws-> 9999. data=%+v code=%d", data, code) },
 		}),

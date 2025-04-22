@@ -31,6 +31,7 @@ const (
 type GreeterClient interface {
 	// Sends a greeting
 	SayHelloReq(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+	// Sends a greeting by post
 	SayHello2Req(ctx context.Context, in *Hello2Request, opts ...grpc.CallOption) (*Hello2Reply, error)
 }
 
@@ -70,6 +71,7 @@ func (c *greeterClient) SayHello2Req(ctx context.Context, in *Hello2Request, opt
 type GreeterServer interface {
 	// Sends a greeting
 	SayHelloReq(context.Context, *HelloRequest) (*HelloReply, error)
+	// Sends a greeting by post
 	SayHello2Req(context.Context, *Hello2Request) (*Hello2Reply, error)
 	mustEmbedUnimplementedGreeterServer()
 }
