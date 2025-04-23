@@ -10,74 +10,16 @@ package v1
 // is compatible with the kratos package it is being compiled against.
 import (
 	"context"
-	"runtime/debug"
 
-	"github.com/yola1107/kratos/v2/log"
+	"github.com/yola1107/kratos/v2/library/task"
 	"github.com/yola1107/kratos/v2/transport/tcp"
 
 	"google.golang.org/protobuf/proto"
 )
 
-var (
-	ins *Loop
-)
+var tcpLoopIns *task.Loop
 
-type Loop struct {
-	jobs   chan func()
-	toggle chan byte
-}
-
-func RecoverFromError(cb func()) {
-	if e := recover(); e != nil {
-		log.Error("Recover => %s:%s\n", e, debug.Stack())
-		if cb != nil {
-			cb()
-		}
-	}
-}
-func (lp *Loop) Start() {
-	log.Info("loop routine start.")
-	go func() {
-		defer RecoverFromError(func() {
-			lp.Start()
-		})
-		for {
-			select {
-			case <-lp.toggle:
-				log.Info("Loop routine stop.")
-				return
-			case job := <-lp.jobs:
-				job()
-			}
-		}
-	}()
-}
-func (lp *Loop) Stop() {
-	go func() {
-		lp.toggle <- 1
-	}()
-}
-func Stop() { ins.Stop() }
-func (lp *Loop) Jobs() int {
-	return len(lp.jobs)
-}
-func Jobs() int { return ins.Jobs() }
-func (lp *Loop) Post(job func()) {
-	go func() {
-		lp.jobs <- job
-	}()
-}
-func Post(job func()) { ins.Post(job) }
-func (lp *Loop) PostAndWait(job func() interface{}) interface{} {
-	ch := make(chan interface{})
-	go func() {
-		lp.jobs <- func() {
-			ch <- job()
-		}
-	}()
-	return <-ch
-}
-func PostAndWait(job func() interface{}) interface{} { return ins.PostAndWait(job) }
+func GetLoopTcp() *task.Loop { return tcpLoopIns }
 
 // GreeterTcpServer is the server API for Greeter service.
 type GreeterTCPServer interface {
@@ -90,8 +32,8 @@ type GreeterTCPServer interface {
 func RegisterGreeterTCPServer(s *tcp.Server, srv GreeterTCPServer) {
 	chanList := s.RegisterService(&Greeter_TCP_ServiceDesc, srv)
 	srv.SetCometChan(chanList, s)
-	ins = &Loop{jobs: make(chan func(), 10000), toggle: make(chan byte)}
-	ins.Start()
+	tcpLoopIns = task.NewLoop(10000)
+	tcpLoopIns.Start()
 }
 
 func _Greeter_SayHelloReq_TCP_Handler(srv interface{}, ctx context.Context, data []byte, interceptor tcp.UnaryServerInterceptor) ([]byte, error) {
@@ -114,7 +56,7 @@ func _Greeter_SayHelloReq_TCP_Handler(srv interface{}, ctx context.Context, data
 		if srv.(GreeterTCPServer).IsLoopFunc("SayHelloReq") {
 			rspChan := make(chan *HelloReply)
 			errChan := make(chan error)
-			ins.Post(func() {
+			tcpLoopIns.Post(func() {
 				resp, err := srv.(GreeterTCPServer).SayHelloReq(ctx, req.(*HelloRequest))
 				rspChan <- resp
 				errChan <- err
@@ -153,7 +95,7 @@ func _Greeter_SayHello2Req_TCP_Handler(srv interface{}, ctx context.Context, dat
 		if srv.(GreeterTCPServer).IsLoopFunc("SayHello2Req") {
 			rspChan := make(chan *Hello2Reply)
 			errChan := make(chan error)
-			ins.Post(func() {
+			tcpLoopIns.Post(func() {
 				resp, err := srv.(GreeterTCPServer).SayHello2Req(ctx, req.(*Hello2Request))
 				rspChan <- resp
 				errChan <- err

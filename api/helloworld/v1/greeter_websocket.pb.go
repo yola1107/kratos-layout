@@ -19,8 +19,7 @@ import (
 
 var websocketLoopIns *task.Loop
 
-func GetLoop() *task.Loop   { return websocketLoopIns }
-func setLoop(lp *task.Loop) { websocketLoopIns = lp }
+func GetLoop() *task.Loop { return websocketLoopIns }
 
 // GreeterWebsocketServer is the server API for Greeter service.
 type GreeterWebsocketServer interface {
@@ -30,7 +29,7 @@ type GreeterWebsocketServer interface {
 }
 
 func RegisterGreeterWebsocketServer(s *websocket.Server, srv GreeterWebsocketServer) {
-	setLoop(s.GetLoop())
+	websocketLoopIns = s.GetLoop()
 	s.RegisterService(&Greeter_Websocket_ServiceDesc, srv)
 }
 

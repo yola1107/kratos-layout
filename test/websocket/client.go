@@ -8,7 +8,7 @@ import (
 	"github.com/yola1107/kratos/v2/contrib/log/logrus"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/websocket"
-	v1 "github.com/yola1107/kratos/v2/transport/websocket/sample/api/helloworld/v1"
+	v1 "kratos-layout/api/helloworld/v1"
 )
 
 var (
