@@ -4,6 +4,7 @@ import (
 	"flag"
 	"os"
 
+	"github.com/yola1107/kratos/v2/contrib/log/zap"
 	"github.com/yola1107/kratos/v2/transport/websocket"
 
 	"kratos-layout/internal/conf"
@@ -11,7 +12,6 @@ import (
 	"github.com/yola1107/kratos/v2"
 	"github.com/yola1107/kratos/v2/config"
 	"github.com/yola1107/kratos/v2/config/file"
-	"github.com/yola1107/kratos/v2/contrib/log/logrus"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/grpc"
 	"github.com/yola1107/kratos/v2/transport/http"
@@ -63,8 +63,8 @@ func main() {
 	//	"span.id", tracing.SpanID(),
 	//)
 
-	//logger := zap.FullColorLogger()
-	logger := logrus.ShortColorLogger()
+	logger := zap.New(zap.DefaultOptions())
+	defer logger.Close()
 
 	log.SetLogger(logger)
 

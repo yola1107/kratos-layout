@@ -14,7 +14,9 @@ import (
 func main() {
 
 	addr := "0.0.0.0:3101"
-	log.SetLogger(logrus.ShortColorLogger())
+	log.SetLogger(logrus.DefaultLogger())
+	log.Infof("start tcp client")
+	defer log.Infof("close close client")
 
 	c, err := tcp.NewTcpClient(&tcp.ClientConfig{
 		Addr: addr,

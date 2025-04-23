@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/yola1107/kratos/v2/contrib/log/logrus"
+	v1 "kratos-layout/api/helloworld/v1"
+
+	"github.com/yola1107/kratos/v2/contrib/log/zap"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/websocket"
-	v1 "kratos-layout/api/helloworld/v1"
 )
 
 var (
@@ -17,7 +18,12 @@ var (
 
 func main() {
 
-	log.SetLogger(logrus.ShortColorLogger())
+	//log.SetLogger(logrus.DefaultLogger())
+	zapLogger := zap.New(zap.DefaultOptions())
+	log.SetLogger(zapLogger)
+	defer zapLogger.Close()
+	log.Infof("start websocket client")
+	defer log.Infof("close websocket client")
 
 	wsClient, err := websocket.NewClient(context.Background(),
 		websocket.WithEndpoint("ws://0.0.0.0:3102"),
@@ -47,7 +53,7 @@ func main() {
 }
 func callWebsocket(c *websocket.Client) {
 	if _, err := c.Request(int32(v1.GameCommand_SayHello2Req), &v1.Hello2Request{Name: fmt.Sprintf("ws:%d", seed)}); err != nil {
-		log.Errorf("%+v", err)
+		log.Fatal("%+v", err)
 	}
 	if _, err := c.Request(6666, &v1.Hello2Request{Name: fmt.Sprintf("ws:%d", seed)}); err != nil {
 		log.Errorf("%+v", err)
