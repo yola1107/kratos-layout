@@ -63,7 +63,7 @@ func main() {
 	//	"span.id", tracing.SpanID(),
 	//)
 
-	logger := zap.New(zap.DefaultOptions())
+	logger := zap.New(nil)
 	defer logger.Close()
 
 	log.SetLogger(logger)

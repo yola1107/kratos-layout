@@ -4,7 +4,7 @@ go 1.23.8
 
 require (
 	github.com/google/wire v0.6.0
-	github.com/yola1107/kratos/v2 v2.8.5-0.20250423151959-2911d21bc025
+	github.com/yola1107/kratos/v2 v2.8.5-0.20250423182812-74aa94dc9fa3
 	go.uber.org/automaxprocs v1.6.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20250422160041-2d3770c4ea7f
 	google.golang.org/grpc v1.72.0
