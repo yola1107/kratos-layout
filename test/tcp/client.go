@@ -15,6 +15,8 @@ func main() {
 
 	addr := "0.0.0.0:3101"
 	log.SetLogger(logrus.DefaultLogger())
+	defer log.GetLogger()
+
 	log.Infof("start tcp client")
 	defer log.Infof("close close client")
 
