@@ -18,10 +18,11 @@ var (
 
 func main() {
 
-	//log.SetLogger(logrus.DefaultLogger())
 	zapLogger := zap.New(nil)
-	log.SetLogger(zapLogger)
 	defer zapLogger.Close()
+
+	log.SetLogger(zapLogger)
+
 	log.Infof("start websocket client")
 	defer log.Infof("close websocket client")
 

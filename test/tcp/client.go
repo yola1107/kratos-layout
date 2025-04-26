@@ -6,7 +6,7 @@ import (
 
 	v1 "kratos-layout/api/helloworld/v1"
 
-	"github.com/yola1107/kratos/v2/contrib/log/logrus"
+	"github.com/yola1107/kratos/v2/contrib/log/zap"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/tcp"
 )
@@ -14,8 +14,10 @@ import (
 func main() {
 
 	addr := "0.0.0.0:3101"
-	log.SetLogger(logrus.DefaultLogger())
-	defer log.GetLogger()
+	zapLogger := zap.New(nil)
+	defer zapLogger.Close()
+
+	log.SetLogger(zapLogger)
 
 	log.Infof("start tcp client")
 	defer log.Infof("close close client")

@@ -4,18 +4,17 @@ import (
 	"flag"
 	"os"
 
-	"github.com/yola1107/kratos/v2/contrib/log/zap"
-	"github.com/yola1107/kratos/v2/transport/websocket"
-
 	"kratos-layout/internal/conf"
 
 	"github.com/yola1107/kratos/v2"
 	"github.com/yola1107/kratos/v2/config"
 	"github.com/yola1107/kratos/v2/config/file"
+	"github.com/yola1107/kratos/v2/contrib/log/zap"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/grpc"
 	"github.com/yola1107/kratos/v2/transport/http"
 	"github.com/yola1107/kratos/v2/transport/tcp"
+	"github.com/yola1107/kratos/v2/transport/websocket"
 	_ "go.uber.org/automaxprocs"
 )
 
