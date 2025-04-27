@@ -7,7 +7,7 @@ import (
 
 	v1 "kratos-layout/api/helloworld/v1"
 
-	"github.com/yola1107/kratos/v2/contrib/log/zap"
+	"github.com/yola1107/kratos/contrib/log/zap/v2"
 	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/websocket"
 )
