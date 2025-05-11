@@ -31,10 +31,10 @@ message Server {
         string addr                      = 2;
         google.protobuf.Duration timeout = 3;
     }
-    HTTP http     = 1;
-    GRPC grpc     = 2;
-    TCP tcp       = 3;
-    TCP websocket = 4;
+    HTTP http           = 1;
+    GRPC grpc           = 2;
+    TCP tcp             = 3;
+    Websocket websocket = 4;
 }
 
 message Data {

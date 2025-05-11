@@ -79,7 +79,7 @@ type Server struct {
 	Http          *Server_HTTP           `protobuf:"bytes,1,opt,name=http,proto3" json:"http,omitempty"`
 	Grpc          *Server_GRPC           `protobuf:"bytes,2,opt,name=grpc,proto3" json:"grpc,omitempty"`
 	Tcp           *Server_TCP            `protobuf:"bytes,3,opt,name=tcp,proto3" json:"tcp,omitempty"`
-	Websocket     *Server_TCP            `protobuf:"bytes,4,opt,name=websocket,proto3" json:"websocket,omitempty"`
+	Websocket     *Server_Websocket      `protobuf:"bytes,4,opt,name=websocket,proto3" json:"websocket,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -135,7 +135,7 @@ func (x *Server) GetTcp() *Server_TCP {
 	return nil
 }
 
-func (x *Server) GetWebsocket() *Server_TCP {
+func (x *Server) GetWebsocket() *Server_Websocket {
 	if x != nil {
 		return x.Websocket
 	}
@@ -562,12 +562,12 @@ const file_conf_conf_proto_rawDesc = "" +
 	"kratos.api\x1a\x1egoogle/protobuf/duration.proto\"]\n" +
 	"\tBootstrap\x12*\n" +
 	"\x06server\x18\x01 \x01(\v2\x12.kratos.api.ServerR\x06server\x12$\n" +
-	"\x04data\x18\x02 \x01(\v2\x10.kratos.api.DataR\x04data\"\xf2\x04\n" +
+	"\x04data\x18\x02 \x01(\v2\x10.kratos.api.DataR\x04data\"\xf8\x04\n" +
 	"\x06Server\x12+\n" +
 	"\x04http\x18\x01 \x01(\v2\x17.kratos.api.Server.HTTPR\x04http\x12+\n" +
 	"\x04grpc\x18\x02 \x01(\v2\x17.kratos.api.Server.GRPCR\x04grpc\x12(\n" +
-	"\x03tcp\x18\x03 \x01(\v2\x16.kratos.api.Server.TCPR\x03tcp\x124\n" +
-	"\twebsocket\x18\x04 \x01(\v2\x16.kratos.api.Server.TCPR\twebsocket\x1ai\n" +
+	"\x03tcp\x18\x03 \x01(\v2\x16.kratos.api.Server.TCPR\x03tcp\x12:\n" +
+	"\twebsocket\x18\x04 \x01(\v2\x1c.kratos.api.Server.WebsocketR\twebsocket\x1ai\n" +
 	"\x04HTTP\x12\x18\n" +
 	"\anetwork\x18\x01 \x01(\tR\anetwork\x12\x12\n" +
 	"\x04addr\x18\x02 \x01(\tR\x04addr\x123\n" +
@@ -627,7 +627,7 @@ var file_conf_conf_proto_depIdxs = []int32{
 	3,  // 2: kratos.api.Server.http:type_name -> kratos.api.Server.HTTP
 	4,  // 3: kratos.api.Server.grpc:type_name -> kratos.api.Server.GRPC
 	5,  // 4: kratos.api.Server.tcp:type_name -> kratos.api.Server.TCP
-	5,  // 5: kratos.api.Server.websocket:type_name -> kratos.api.Server.TCP
+	6,  // 5: kratos.api.Server.websocket:type_name -> kratos.api.Server.Websocket
 	7,  // 6: kratos.api.Data.database:type_name -> kratos.api.Data.Database
 	8,  // 7: kratos.api.Data.redis:type_name -> kratos.api.Data.Redis
 	9,  // 8: kratos.api.Server.HTTP.timeout:type_name -> google.protobuf.Duration
