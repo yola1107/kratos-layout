@@ -3,13 +3,12 @@ package service
 import (
 	"context"
 
-	"github.com/yola1107/kratos/v2/log"
-	"github.com/yola1107/kratos/v2/transport/websocket"
-
 	v1 "kratos-layout/api/helloworld/v1"
 	"kratos-layout/internal/biz"
 
+	"github.com/yola1107/kratos/v2/log"
 	"github.com/yola1107/kratos/v2/transport/tcp"
+	"github.com/yola1107/kratos/v2/transport/websocket"
 )
 
 // GreeterService is a greeter service.
@@ -47,11 +46,11 @@ func (s *GreeterService) SetCometChan(cl *tcp.ChanList, cs *tcp.Server) {}
 func (s *GreeterService) IsLoopFunc(f string) (isLoop bool) { return false }
 
 // OnOpenFunc 连接建立回调
-func (s *GreeterService) OnOpenFunc(*websocket.Session) {
-	log.Infof("OnOpenFunc")
+func (s *GreeterService) OnOpenFunc(sess *websocket.Session) {
+	log.Infof("OnOpenFunc: %+v", sess.ID())
 }
 
 // OnCloseFunc 连接关闭回调
-func (s *GreeterService) OnCloseFunc(*websocket.Session) {
-	log.Infof("OnCloseFunc")
+func (s *GreeterService) OnCloseFunc(sess *websocket.Session) {
+	log.Infof("OnCloseFunc: %+v", sess.ID())
 }
