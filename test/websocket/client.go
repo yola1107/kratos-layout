@@ -54,7 +54,7 @@ func main() {
 }
 func callWebsocket(c *websocket.Client) {
 	if _, err := c.Request(int32(v1.GameCommand_SayHello2Req), &v1.Hello2Request{Name: fmt.Sprintf("ws:%d", seed)}); err != nil {
-		log.Fatal("%+v", err)
+		log.Errorf("%+v", err)
 	}
 	if _, err := c.Request(6666, &v1.Hello2Request{Name: fmt.Sprintf("ws:%d", seed)}); err != nil {
 		log.Errorf("%+v", err)
