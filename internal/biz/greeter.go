@@ -3,10 +3,10 @@ package biz
 import (
 	"context"
 
+	v1 "github.com/yola1107/kratos-layout/api/helloworld/v1"
+
 	"github.com/yola1107/kratos/v2/errors"
 	"github.com/yola1107/kratos/v2/log"
-
-	v1 "github.com/yola1107/kratos-layout/api/helloworld/v1"
 )
 
 var (

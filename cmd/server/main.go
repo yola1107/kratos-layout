@@ -1,10 +1,9 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"os"
-
-	"github.com/yola1107/kratos-layout/internal/conf"
 
 	"github.com/yola1107/kratos/contrib/log/zap/v2"
 	"github.com/yola1107/kratos/v2"
@@ -16,6 +15,8 @@ import (
 	"github.com/yola1107/kratos/v2/transport/tcp"
 	"github.com/yola1107/kratos/v2/transport/websocket"
 	_ "go.uber.org/automaxprocs"
+
+	"github.com/yola1107/kratos-layout/internal/conf"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
@@ -47,6 +48,14 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, ts *tcp.Server,
 			ts,
 			ws,
 		),
+		kratos.BeforeStart(func(ctx context.Context) error {
+			log.Info("before start")
+			return nil
+		}),
+		kratos.AfterStop(func(ctx context.Context) error {
+			log.Info("after stop")
+			return nil
+		}),
 	)
 }
 
@@ -61,11 +70,8 @@ func main() {
 	//	"trace.id", tracing.TraceID(),
 	//	"span.id", tracing.SpanID(),
 	//)
-
 	logger := zap.New(nil)
 	defer logger.Close()
-
-	log.SetLogger(logger)
 
 	c := config.New(
 		config.WithSource(

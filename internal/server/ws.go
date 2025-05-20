@@ -1,12 +1,13 @@
 package server
 
 import (
-	"github.com/yola1107/kratos/v2/log"
-	"github.com/yola1107/kratos/v2/middleware/recovery"
-	"github.com/yola1107/kratos/v2/transport/websocket"
 	v1 "github.com/yola1107/kratos-layout/api/helloworld/v1"
 	"github.com/yola1107/kratos-layout/internal/conf"
 	"github.com/yola1107/kratos-layout/internal/service"
+
+	"github.com/yola1107/kratos/v2/log"
+	"github.com/yola1107/kratos/v2/middleware/recovery"
+	"github.com/yola1107/kratos/v2/transport/websocket"
 )
 
 // NewWebsocketServer new an Websocket server.
