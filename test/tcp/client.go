@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	v1 "kratos-layout/api/helloworld/v1"
+	v1 "github.com/yola1107/kratos-layout/api/helloworld/v1"
 
 	"github.com/yola1107/kratos/contrib/log/zap/v2"
 	"github.com/yola1107/kratos/v2/log"

@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"kratos-layout/internal/conf"
+	"github.com/yola1107/kratos-layout/internal/conf"
 
 	"github.com/yola1107/kratos/contrib/log/zap/v2"
 	"github.com/yola1107/kratos/v2"

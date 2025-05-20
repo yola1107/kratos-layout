@@ -1,6 +1,6 @@
-module kratos-layout
+module github.com/yola1107/kratos-layout
 
-go 1.23.8
+go 1.24.2
 
 require (
 	github.com/google/wire v0.6.0

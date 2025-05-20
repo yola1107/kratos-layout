@@ -52,7 +52,7 @@ api:
 .PHONY: wire
 # wire
 wire:
-	cd cmd/kratos-layout && wire
+	cd cmd/server && wire
 
 .PHONY: build
 # build

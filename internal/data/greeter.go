@@ -3,9 +3,9 @@ package data
 import (
 	"context"
 
-	"kratos-layout/internal/biz"
-
 	"github.com/yola1107/kratos/v2/log"
+
+	"github.com/yola1107/kratos-layout/internal/biz"
 )
 
 type greeterRepo struct {

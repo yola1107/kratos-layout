@@ -7,13 +7,13 @@
 package main
 
 import (
+	"github.com/yola1107/kratos-layout/internal/biz"
+	"github.com/yola1107/kratos-layout/internal/conf"
+	"github.com/yola1107/kratos-layout/internal/data"
+	"github.com/yola1107/kratos-layout/internal/server"
+	"github.com/yola1107/kratos-layout/internal/service"
 	"github.com/yola1107/kratos/v2"
 	"github.com/yola1107/kratos/v2/log"
-	"kratos-layout/internal/biz"
-	"kratos-layout/internal/conf"
-	"kratos-layout/internal/data"
-	"kratos-layout/internal/server"
-	"kratos-layout/internal/service"
 )
 
 import (
